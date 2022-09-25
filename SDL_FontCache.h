@@ -6,7 +6,7 @@ Dedicated to the memory of Florian Hufsky
 License:
     The short:
     Use it however you'd like, but keep the copyright and license notice
-    whenever these files or parts of them are distributed in uncompiled form.
+    whenever these files or parts of them are distributed.
 
     The long:
 Copyright (c) 2019 Jonathan Dearborn
