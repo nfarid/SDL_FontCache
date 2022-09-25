@@ -6,38 +6,17 @@ project("SDL_FontCache"
     LANGUAGES C
 )
 
+#Default output directories
+if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
+endif()
 
-#Library source files
-add_library("SDL_FontCache"
-    "SDL_FontCache.h"
-    "SDL_FontCache.c"
-)
+if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
+endif()
 
-
-#Dependencies
-find_library("SDL2_LIBRARIES"
-    NAME "SDL2"
-    REQUIRED
-)
-find_library("SDL2_TTF_LIBRARY"
-    NAME "SDL2_ttf"
-    REQUIRED
-)
-find_library("SDL2_IMAGE_LIBRARY"
-    NAME "SDL2_image"
-    REQUIRED
-)
-find_library("SDL2_MIXER_LIBRARY"
-    NAME "SDL2_mixer"
-    REQUIRED
-)
-target_link_libraries("SDL_FontCache"
-    PUBLIC "${SDL2_LIBRARIES}"
-    PUBLIC "${SDL2_TTF_LIBRARY}"
-    PUBLIC "${SDL2_IMAGE_LIBRARY}"
-    PUBLIC "${SDL2_MIXER_LIBRARY}"
-    PUBLIC "FontCache"
-)
+#Targets
+add_subdirectory("src/")
 
 
 
