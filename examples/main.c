@@ -1,5 +1,6 @@
-#include "SDL.h"
-#include "SDL_FontCache.h"
+
+#include <SDL2/SDL.h>
+#include <SDL_FontCache/SDL_FontCache.h>
 
 #include <math.h>
 #include <string.h>
