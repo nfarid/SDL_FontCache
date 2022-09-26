@@ -1,14 +1,13 @@
 
 #Building the library
-set(SDL_FontCache_IncludeDir "${PROJECT_SOURCE_DIR}/include/SDL_FontCache")
 
 add_library("SDL_FontCache"
     "SDL_FontCache.c"
-    "${SDL_FontCache_IncludeDir}/SDL_FontCache.h"
+    "${PROJECT_SOURCE_DIR}/include/SDL_FontCache/SDL_FontCache.h"
 )
 
 target_include_directories("SDL_FontCache"
-    PUBLIC "${SDL_FontCache_IncludeDir}"
+    PUBLIC "${PROJECT_SOURCE_DIR}/include/"
 )
 
 
