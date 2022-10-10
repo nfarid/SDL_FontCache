@@ -18,3 +18,10 @@ FC_Draw(font, renderer, 0, 0, "This is %s.\n It works.", "example text");
 
 FC_FreeFont(font);
 ```
+
+
+
+To link to the library:
+```
+target_link_libraries("my_app" PRIVATE "SDL2::ttf::cache")
+```

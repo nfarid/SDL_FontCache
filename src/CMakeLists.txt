@@ -6,6 +6,8 @@ add_library("SDL_FontCache"
     "${PROJECT_SOURCE_DIR}/include/SDL_FontCache/SDL_FontCache.h"
 )
 
+add_library("SDL2::ttf::cache" ALIAS "SDL_FontCache")
+
 target_include_directories("SDL_FontCache"
     PUBLIC "${PROJECT_SOURCE_DIR}/include/"
 )
