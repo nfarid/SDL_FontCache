@@ -12,6 +12,22 @@
 ###############################################################################
 
 
+include("FindPackageHandleStandardArgs")
+include("SelectLibraryConfigurations")
+
+
+
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
+    message(TRACE "Special handling for emscripten's SDL2_ttf")
+    add_library("SDL2::ttf" IMPORTED INTERFACE)
+    target_compile_options("SDL2::ttf" INTERFACE "-sUSE_SDL_TTF=2")
+    target_link_options("SDL2::ttf" INTERFACE "-sUSE_SDL_TTF=2")
+    set(SDL2_ttf_FOUND ON)
+    return()
+endif()
+
+
+
 message(DEBUG "Looking for SDL's include directory")
 find_path(SDL2_ttf_INCLUDE_DIRECTORY "SDL2/SDL_ttf.h"
     PATH_SUFFIXES "include"
@@ -48,14 +64,12 @@ find_library(SDL2_ttf_LIBRARY_DEBUG
 message(VERBOSE "SDL2_ttf_LIBRARY_DEBUG: ${SDL2_ttf_LIBRARY_DEBUG}")
 
 message(DEBUG "Set SDL2_ttf_LIBRARY to a suitable value using SelectLibraryConfigurations")
-include(SelectLibraryConfigurations)
 select_library_configurations("SDL2_ttf")
 message(DEBUG "SDL2_ttf_LIBRARY: ${SDL2_ttf_LIBRARY}")
 
 
 
 message(DEBUG "Using FindPackageHandleStandardArgs to handle arguments of find_package")
-include("FindPackageHandleStandardArgs")
 find_package_handle_standard_args("SDL2_ttf"
     REQUIRED_VARS SDL2_ttf_LIBRARY SDL2_ttf_INCLUDE_DIRECTORY
 )
@@ -93,4 +107,4 @@ if( (NOT SDL2_ttf_LIBRARY_RELEASE) AND (NOT SDL2_ttf_LIBRARY_DEBUG) )
 endif()
 
 
-message(STATUS "Library SDL2::ttf can now be linked to.")
+message(NOTICE "Library SDL2::ttf can now be linked to.")
