@@ -16,6 +16,21 @@ SDL_Window* window;
 SDL_Renderer* renderer;
 #endif
 
+#define INTERNAL static
+
+//Combine 2 strings (must use free when done with it)
+INTERNAL char* string_concat(const char* lhs, const char* rhs) {
+    const size_t lhs_len = strlen(lhs);
+    const size_t rhs_len = strlen(rhs);
+    const size_t combined_len = lhs_len + rhs_len + 1;
+    char* combined_str = malloc(combined_len);
+    if(!combined_str)
+        abort();
+    combined_str[0] = '\0';
+    strcat(combined_str, lhs);
+    strcat(combined_str, rhs);
+    return combined_str;
+}
 
 void draw_rect(FC_Rect rect, SDL_Color color)
 {
@@ -95,18 +110,22 @@ void loop_drawSomeText()
     FC_Font* font2 = FC_CreateFont();
     FC_Font* font3 = FC_CreateFont();
 
-    //FC_SetLoadingString(font, FC_GetStringASCII_Latin1());
-
+    char* asset_dir = string_concat(SDL_GetBasePath(), "../data/");
+    char* font_path = string_concat(asset_dir, "FreeSans.ttf");
+    char* text_file_path = string_concat(asset_dir, "utf8_sample.txt");
+    free(asset_dir);
     #ifdef SDL_GPU_VERSION_MAJOR
-    FC_LoadFont(font, "fonts/FreeSans.ttf", 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
-    FC_LoadFont(font2, "fonts/FreeSans.ttf", 18, FC_MakeColor(0,200,0,255), TTF_STYLE_NORMAL);
-    FC_LoadFont(font3, "fonts/FreeSans.ttf", 22, FC_MakeColor(0,0,200,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font, font_path, 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font2, font_path, 18, FC_MakeColor(0,200,0,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font3, font_path, 22, FC_MakeColor(0,0,200,255), TTF_STYLE_NORMAL);
     #else
-    FC_LoadFont(font, renderer, "fonts/FreeSans.ttf", 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
-    FC_LoadFont(font2, renderer, "fonts/FreeSans.ttf", 18, FC_MakeColor(0,200,0,255), TTF_STYLE_NORMAL);
-    FC_LoadFont(font3, renderer, "fonts/FreeSans.ttf", 22, FC_MakeColor(0,0,200,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font, renderer, font_path, 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font2, renderer, font_path, 18, FC_MakeColor(0,200,0,255), TTF_STYLE_NORMAL);
+    FC_LoadFont(font3, renderer, font_path, 22, FC_MakeColor(0,0,200,255), TTF_STYLE_NORMAL);
     #endif
-    char* utf8_string = get_string_from_file("utf8_sample.txt");
+    free(font_path);
+    char* utf8_string = get_string_from_file(text_file_path);
+    free(text_file_path);
     char input_text[2048];
     sprintf(input_text, "Edit this text.");
     int input_position = U8_strlen(input_text);
