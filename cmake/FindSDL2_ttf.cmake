@@ -107,4 +107,4 @@ if( (NOT SDL2_ttf_LIBRARY_RELEASE) AND (NOT SDL2_ttf_LIBRARY_DEBUG) )
 endif()
 
 
-message(NOTICE "Library SDL2::ttf can now be linked to.")
+message(STATUS "Library SDL2::ttf can now be linked to.")
