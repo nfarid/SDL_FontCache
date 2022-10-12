@@ -15,5 +15,11 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 #Targets
 add_subdirectory("src/")
 
+#Examples
+option(BUILD_EXAMPLE OFF)
+if(BUILD_EXAMPLE)
+    add_subdirectory("examples/")
+endif()
+
 
 
